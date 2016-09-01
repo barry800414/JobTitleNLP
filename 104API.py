@@ -40,7 +40,7 @@ def __getJobsByCatID(catID, page, verbose=0):
 		"cat": catID,
 		"role": 1,
 		"fmt": 8,
-		"cols": "J,JOB,JOBCAT_DESCRIPT",
+		"cols": "J,JOB,JOBCAT_DESCRIPT,NAME",
 		"page": page
 	}
 	try:
@@ -52,7 +52,7 @@ def __getJobsByCatID(catID, page, verbose=0):
 		
 		for d in p['data']:
 			cat = [c for c in d['JOBCAT_DESCRIPT'].split('@') if c != "類目"]
-			jobs[d['J']] = { "title": d['JOB'], "cat": cat }
+			jobs[d['J']] = { "title": d['JOB'], "cat": cat, 'company_name': d['NAME'] }
 			
 	except Exception as e:
 		print(e, file=sys.stderr)
