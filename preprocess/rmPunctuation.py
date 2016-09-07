@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 
 
-import sys, json
+import sys, json, re
 
 '''
 	Preprocess text (removing punctuation)
