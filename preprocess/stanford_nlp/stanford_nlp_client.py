@@ -138,17 +138,18 @@ def lines2Const(lines):
     edgeLines = lines[1+nodesNum:]
     return (nodeLines, edgeLines)
 
-	
-client = Client("http://140.112.31.187", 8011)
 
-# segmentation example
-print(client.sendSegmentRequest("我是一名軟體工程師"))
+if __name__ == '__main__':
+	client = Client("http://140.112.31.187", 8011)
 
-# POS tagging example
-print(client.sendTagRequest("我是一名軟體工程師"))
+	# segmentation example
+	print(client.sendSegmentRequest("我是一名軟體工程師"))
 
-# constituent parsing example
-print(client.sendConstParseRequest("我是一名軟體工程師"))
+	# POS tagging example
+	print(client.sendTagRequest("我是一名軟體工程師"))
 
-# dependency parsing example
-print(client.sendParseRequest("我是一名軟體工程師"))
+	# constituent parsing example
+	print(client.sendConstParseRequest("我是一名軟體工程師"))
+
+	# dependency parsing example
+	print(client.sendParseRequest("我是一名軟體工程師"))
