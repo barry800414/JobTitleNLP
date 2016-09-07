@@ -21,14 +21,16 @@ if __name__ == '__main__':
 
 	client = Client("http://140.112.31.187", 8011)
 
-	for jobCat, titles in data.items():
-		for i in range(len(titles)):
-			r = client.sendConstParseRequest(titles[i], seg=segmented)
-			print(r)
+	for i, (jobCat, titles) in enumerate(data.items()):
+		print('(%d/%d) Now preprocess jobs in category: %s' % (i+1, len(data), jobCat))
+		for j in range(len(titles)):
+			if j % 100 == 0:
+				print('Progress: (%d/%d) job titles' % (j, len(titles)))
+			r = client.sendConstParseRequest(titles[j], seg=segmented)
 			if r is None:
 				print("Error: %s wasn't parsed successfully", file=sys.stderr)
 			else:
-				titles[i] = r
+				titles[j] = r
 
 	with open(sys.argv[2], 'w') as f:
 		json.dump(data, f, indent=1, ensure_ascii=False)
