@@ -31,6 +31,9 @@ def getL2ToL1(rawCat):
 	return to1
 
 if __name__ == '__main__':
+	if len(sys.argv) != 2:
+		print('Usage:', sys.argv[0], 'categoryFile', file=sys.stderr)
+		exit(-1)
 	r = requests.get('http://www.104.com.tw/104i/js/js.cfm?p=documentation.cfm') 
 	print('Status:', r.status_code)
 
@@ -45,7 +48,7 @@ if __name__ == '__main__':
 
 	body = html[s+1:e]
 	cat = json.loads(body)
-	with open('104RawCategory.json', 'w') as f:
+	with open(sys.argv[1], 'w') as f:
 		json.dump(cat, f, ensure_ascii=False, indent=1, sort_keys=True)
 		
 	
