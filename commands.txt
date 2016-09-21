@@ -1,0 +1,6 @@
+python3 ./preprocess/rmPunctuation.py ./data/jobs20160816.json ./preprocess/punctuation.json ./data/jobs-pre.json
+cd ./preprocess/jieba/; python3 jieba_segment.py ../../data/jobs-pre.json ../../data/jobs-pre-jieba.json; cd ../..
+python3 ./preprocess/minimizeData.py ./data/jobs-pre-jieba.json ./data/jobs-pre-jieba-min.json
+python3 tfidf.py ./data/jobs-pre-jieba-min.json tfidf.json
+python3 filterTFIDF.py < tfidf.json > filtered.json
+python3 getCandidate.py data.json filtered.json candidate.json candidate.txt 0.05 100 1000
