@@ -20,7 +20,7 @@ rmRegexWords = [
 
 rmStr = '|'.join(rmRegexWords)
 rmRegex = re.compile(rmStr)
-
+minLength = 1
 
 if __name__ == '__main__':
 	tfidf = json.load(sys.stdin)
@@ -30,8 +30,9 @@ if __name__ == '__main__':
 		print('Progress (%d/%d) %s' % (i, len(tfidf), jobCat), file=sys.stderr)
 		newList = list()
 		for title, value in titleList:
-			if rmRegex.search(title) is None:
+			if len(title) > minLength and rmRegex.search(title) is None:
 				newList.append([title, value])
+		
 		newDict[jobCat] = newList
 
 	json.dump(newDict, sys.stdout, indent=1, ensure_ascii=False)
