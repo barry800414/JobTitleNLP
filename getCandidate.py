@@ -11,7 +11,7 @@ def parseArgument(argv):
 	minSize = int(argv[6]) if len(argv) >=7 else None
 	maxSize = int(argv[7]) if len(argv) >=8 else None
 	return (top, minSize, maxSize)
- 
+
 def getCandidateNum(total, top, minSize, maxSize):
 	num = round(top*total)
 	if minSize is not None:
@@ -21,9 +21,9 @@ def getCandidateNum(total, top, minSize, maxSize):
 		if num > maxSize:
 			num = maxSize
 	return num
-		
+
 if __name__ == '__main__':
-	if len(sys.argv) < 5: 
+	if len(sys.argv) < 5:
 		print('Usage:', sys.argv[0], 'webSiteData apiData outJson outTxt [[[topPercent] min] max]', file=sys.stderr)
 		exit(-1)
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
 		for title, value in titleList:
 			if title in titleSet:
 				newList.append([title, 1])
-			else: 
+			else:
 				newList.append([title, value])
 			if len(newList) >= num:
 				break
@@ -55,7 +55,11 @@ if __name__ == '__main__':
 		json.dump(newDict, f, indent=1, ensure_ascii=False)
 
 	with open(sys.argv[4], 'w') as f:
+		cnt = 0
 		for jobCat, titleList in newDict.items():
-			print('----------%s----------' % (jobCat), file=f)
+			print('----------%s----------' % (jobCat), file=f, end='\r\n')
 			for key, value in titleList:
-				print(key, value, file=f)
+				if value == 1:
+					print(key, value, file=f, end='\r\n')
+				else:
+					print(key, file=f, end='\r\n')
